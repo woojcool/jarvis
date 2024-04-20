@@ -1,13 +1,13 @@
 import { StyleSheet } from "react-native";
 
 import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
-import { Surface } from "react-native-paper";
+import { View } from "@/components/Themed";
+import { Surface, Text } from "react-native-paper";
 
-export default function TabOneScreen() {
+export default function Overview() {
   return (
     <View style={styles.container}>
-      <Surface>
+      <Surface style={{ padding: 10 }}>
         <Text>Screen One Text- Hello World</Text>
       </Surface>
     </View>
