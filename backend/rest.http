@@ -1,0 +1,45 @@
+@host=localhost:5000
+
+###
+# @name register
+# @prompt user Username
+# @prompt pass Password
+POST /auth/register HTTP/1.1
+Host: {{host}}
+Content-Type: 'application/json'
+
+{
+    "username": "{{user}}",
+    "password": "{{pass}}"
+}
+
+###
+# @name login
+# @prompt user Username
+# @prompt pass Password
+POST /auth/login HTTP/1.1
+Host: {{host}}
+Content-Type: 'application/json'
+
+{
+    "username": "{{user}}",
+    "password": "{{pass}}"
+}
+
+###
+# @name deleteUser
+# @prompt user Username
+# @prompt pass Password
+DELETE /auth/delete HTTP/1.1
+Host: {{host}}
+Content-Type: 'application/json'
+
+{
+    "username": "{{user}}",
+    "password": "{{pass}}"
+}
+
+###
+POST /habits HTTP/1.1
+Host: {{host}}
+Authorization: '42069'
