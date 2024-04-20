@@ -33,9 +33,7 @@ def login():
 
     user = users.find_one({"username": username})
     if user and bcrypt.check_password_hash(user['password'], password):
-        login_user(user)
-        next_page = request.args.get('next', None)
-        return redirect(next_page if next_page else url_for('users.account'))
+        return {'userID': str(user['_id'])}
     else:
         return {'error': 'Invalid username or password'}, 401 
 
