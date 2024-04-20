@@ -36,16 +36,38 @@ def create_habit():
     return new_habit, 201
 
 @habits_bp.route('', methods=['GET'])
-def get_all_habits():
+def get_all_habits(): 
     userID = request.headers.get('Authorization')
     return
 
 @habits_bp.route('/<habitID>', methods=['PUT'])
 def update_habit(habitID):
     userID = request.headers.get('Authorization')
-    return
+    user = users.find_one({"_id": ObjectId(userID)})
+    if not user:
+        return {'error': 'User not found'}, 404
+
+    body = request.get_json(force=True)
+
+    update_data = {key: value for key, value in body.items() if key in ['name', 'scheduled', 'completed']}
+
+    result = habits.update_one({"_id": ObjectId(habitID), "_userID": ObjectId(userID)}, {'$set': update_data})
+    if result.matched_count == 0:
+        return {'error': 'Habit not found'}, 404
+
+    return {'message': 'Habit updated'}, 200
+    
 
 @habits_bp.route('/<habitID>', methods=['DELETE'])
 def delete_habit(habitID):
     userID = request.headers.get('Authorization')
-    return
+    user = users.find_one({"_id": ObjectId(userID)})
+    if not user:
+        return {'error': 'User not found'}, 404
+    
+    result = habits.delete_one({"_id": ObjectId(habitID), "_userID": ObjectId(userID)})
+    if result.deleted_count == 0:
+        return {'error': 'Habit not found or already deleted'}, 404
+
+    return {'message': 'Habit deleted'}, 200
+
