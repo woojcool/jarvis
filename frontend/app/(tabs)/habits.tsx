@@ -1,12 +1,15 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import { Text } from 'react-native-paper';
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { View } from '@/components/Themed';
+import { Text, useTheme } from "react-native-paper";
+import EditScreenInfo from "@/components/EditScreenInfo";
+import { View } from "@/components/Themed";
 
 export default function Habits() {
+  const theme = useTheme();
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, backgroundColor: theme.colors.background }}
+    >
       <Text>Habits</Text>
     </View>
   );
@@ -15,16 +18,16 @@ export default function Habits() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   separator: {
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
 });

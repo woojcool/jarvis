@@ -1,9 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
+import { Text, useTheme } from "react-native-paper";
 
 const Tasks = () => {
+  const theme = useTheme();
   return (
-    <View>
+    <View
+      style={{ ...styles.container, backgroundColor: theme.colors.background }}
+    >
       <Text>todo</Text>
     </View>
   );
@@ -11,4 +15,9 @@ const Tasks = () => {
 
 export default Tasks;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+  },
+});
