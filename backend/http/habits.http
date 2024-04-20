@@ -32,3 +32,10 @@ Authorization: {{userID}}
     "scheduled": [false, true, false, true, false, true, false],
     "completed": [false, true, false, false, false, false, false]
 }
+
+###
+# @name deleteHabit
+# @prompt habitID Habit ID
+DELETE /habits/{{habitID}} HTTP/1.1
+Host: {{host}}
+Authorization: {{userID}}
