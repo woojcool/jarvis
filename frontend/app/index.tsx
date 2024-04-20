@@ -1,6 +1,7 @@
 import { StyleSheet, View, ScrollView } from "react-native";
 import { Text, useTheme, Surface, TextInput, Button } from "react-native-paper";
 import React, { useState } from "react";
+import { router } from "expo-router";
 
 const index = () => {
   const theme = useTheme();
@@ -10,6 +11,14 @@ const index = () => {
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPasssword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleLoginButton = () => {
+    router.replace("/(tabs)/overview");
+  };
+
+  const handleRegisterButton = () => {
+    alert("register btn clicked");
+  };
 
   return (
     <View
@@ -47,7 +56,11 @@ const index = () => {
             secureTextEntry
             onChangeText={setLoginPassword}
           />
-          <Button style={styles.verticalSpacing} mode="contained">
+          <Button
+            onPress={handleLoginButton}
+            style={styles.verticalSpacing}
+            mode="contained"
+          >
             Log in
           </Button>
         </Surface>
@@ -75,7 +88,11 @@ const index = () => {
             label="Confirm Password"
             secureTextEntry
           />
-          <Button style={styles.verticalSpacing} mode="contained">
+          <Button
+            onPress={handleRegisterButton}
+            style={styles.verticalSpacing}
+            mode="contained"
+          >
             Register
           </Button>
         </Surface>
