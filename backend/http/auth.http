@@ -38,8 +38,3 @@ Content-Type: 'application/json'
     "username": "{{user}}",
     "password": "{{pass}}"
 }
-
-###
-POST /habits HTTP/1.1
-Host: {{host}}
-Authorization: '42069'
