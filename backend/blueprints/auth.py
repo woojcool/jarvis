@@ -5,9 +5,9 @@ from flask_login import current_user, login_required, login_user, logout_user
 from flask import Blueprint, redirect, url_for, render_template, flash, request
 
 
-auth = Blueprint("auth", __name__, url_prefix='/auth')
+auth_bp = Blueprint("auth", __name__, url_prefix='/auth')
 
-@auth.route('/register', methods=["POST"])
+@auth_bp.route('/register', methods=["POST"])
 def register():
     body = request.get_json(force=True)
     username = body['username']
@@ -25,7 +25,7 @@ def register():
     result = users.insert_one(new_user)
     return {'userID': str(result.inserted_id)}, 201
 
-@auth.route('/login', methods=["POST"])
+@auth_bp.route('/login', methods=["POST"])
 def login():
     body = request.get_json(force=True)
     username = body['username']
@@ -39,7 +39,7 @@ def login():
 
 
 
-@auth.route('/delete', methods=["DELETE"])
+@auth_bp.route('/delete', methods=["DELETE"])
 def delete():
     body = request.get_json(force=True)
     username = body['username']
