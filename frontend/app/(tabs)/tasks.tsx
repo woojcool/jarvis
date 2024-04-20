@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Todo = () => {
+const Tasks = () => {
   return (
     <View>
       <Text>todo</Text>
@@ -9,6 +9,6 @@ const Todo = () => {
   );
 };
 
-export default Todo;
+export default Tasks;
 
 const styles = StyleSheet.create({});

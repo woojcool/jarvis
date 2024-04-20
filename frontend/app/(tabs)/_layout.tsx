@@ -56,9 +56,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="todo"
+        name="tasks"
         options={{
-          title: "Todo List",
+          title: "Task List",
         }}
       />
     </Tabs>
