@@ -14,6 +14,7 @@ Flask-Login==0.6.2
 flask-mongoengine==1.0.0
 Flask-PyMongo==2.3.0
 Flask-WTF==1.0.0
+flask_cors==4.0.0
 idna==3.3
 iniconfig==2.0.0
 itsdangerous==2.1.1
