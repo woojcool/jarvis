@@ -1,6 +1,7 @@
-Readme.md
+# Jarvis
 
-Login Page
-Register Page
-Weather API
-Daily Stoic Quotes API
+## Feature Checklist
+- [ ] Login Page
+- [ ] Register Page
+- [ ] Weather API
+- [ ] Daily Stoic Quotes API
