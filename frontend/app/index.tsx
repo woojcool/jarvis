@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-around",
     alignItems: "center",
-    borderWidth: 1,
     padding: 8,
     flex: 1,
     height: "100%",
