@@ -1,8 +1,10 @@
 from flask import Blueprint, request
 from database import users
-from backend import bcrypt
+from bcrypt import bcrypt
 from flask_login import current_user, login_required, login_user, logout_user
 from flask import Blueprint, redirect, url_for, render_template, flash, request
+import sys
+sys.path.append("..")
 
 
 
