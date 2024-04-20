@@ -18,8 +18,22 @@ def create_habit():
     scheduled = body['scheduled']
 
     # insert new habit into db
-    result = habits.insert_one()
-    return
+    new_habit = {
+        "_userID": ObjectId(userID),
+        "name": name,
+        "scheduled": scheduled,
+        "completed": [False] * 7
+    }
+    result = habits.insert_one(new_habit)
+
+    # return habit data
+    new_habit = {
+        "habitID": str(result.inserted_id),
+        "name": name,
+        "scheduled": scheduled,
+        "completed": [False] * 7
+    }
+    return new_habit, 201
 
 @habits_bp.route('', methods=['GET'])
 def get_all_habits():
