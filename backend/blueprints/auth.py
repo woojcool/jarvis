@@ -1,5 +1,10 @@
 from flask import Blueprint, request
 from database import users
+from .. import bcrypt
+from flask_login import current_user, login_required, login_user, logout_user
+from flask import Blueprint, redirect, url_for, render_template, flash, request
+
+
 
 auth = Blueprint("auth", __name__, url_prefix='/auth')
 
@@ -9,16 +14,17 @@ def register():
     username = body['username']
     password = body['password']
 
-    if username == '': # maybe some other validity checks too idk
-        return {'error': 'Invalid username'}, 400
-    
+    if not username or not password:
+        return {'error': 'Invalid username or password'}, 400
     # TODO: securely insert username/pass into "users" db (imported above)
 
-    if usernameAlreadyExists: # figure out how to check this
+    if users.find_one({"username": username}):
         return {'error': 'Username already exists'}, 409
 
-    userID = '6969420' # replace this with inserted_id of user
-    return {'userID': userID}, 201
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    new_user = {"username": username, "password": hashed_password}
+    result = users.insert_one(new_user)
+    return {'userID': str(result.inserted_id)}, 201
 
 @auth.route('/login', methods=["POST"])
 def login():
@@ -26,18 +32,15 @@ def login():
     username = body['username']
     password = body['password']
 
-    # TODO: find username in "users" db
+    user = users.find_one({"username": username})
+    if user and bcrypt.check_password_hash(user['password'], password):
+        login_user(user)
+        next_page = request.args.get('next', None)
+        return redirect(next_page if next_page else url_for('users.account'))
+    else:
+        return {'error': 'Invalid username or password'}, 401 
 
-    if usernameWasNotFound: # figure out how to check this
-        return {'error': 'Invalid username'}, 404
-    
-    # TODO: check if provided password matches the stored encrypted password
 
-    if passwordDoesNotMatch: # figure out how to check this
-        return {'error': 'Incorrect password'}, 401
-
-    userID = '6969420' # replace this with id of user
-    return {'userID': userID}, 200
 
 @auth.route('/delete', methods=["DELETE"])
 def delete():
@@ -45,16 +48,12 @@ def delete():
     username = body['username']
     password = body['password']
     
-    # TODO: find username in "users" db
-
-    if usernameWasNotFound: # figure out how to check this
+    user = users.find_one({"username": username})
+    if not user:
         return {'error': 'Invalid username'}, 404
     
-    # TODO: check if provided password matches the stored encrypted password
-
-    if passwordDoesNotMatch: # figure out how to check this
+    if bcrypt.check_password_hash(user['password'], password):
+        users.delete_one({"username": username})
+        return '', 204
+    else:
         return {'error': 'Incorrect password'}, 401
-    
-    # TODO: delete user AND ALL ASSOCIATED HABITS/TASKS from respective db's
-
-    return '', 204 # empty 204 if successful
