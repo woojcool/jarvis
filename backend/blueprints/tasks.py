@@ -56,5 +56,9 @@ def delete_task(taskID):
     user = users.find_one({"_id": ObjectId(userID)})
     if not user:
         return {'error': 'User not found'}, 404
+    
+    result = tasks.delete_one({"_id": ObjectId(taskID), "_userID": ObjectId(userID)})
+    if result.deleted_count == 0:
+        return {'error': 'Task not found or already deleted'}, 404
 
-    return
+    return "", 200
