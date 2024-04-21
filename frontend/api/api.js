@@ -30,10 +30,6 @@ async function check() {
     }
 }
 
-export async function getPriorityTasks() {
-
-}
-
 export async function createTask(name, userID = tempUserID) {
     try {
         const response = await fetch(`${host}/tasks`, {
@@ -89,19 +85,43 @@ const auth = {
 }
 
 const habits = {
+    async create(token, name, scheduled) {
+        return api('POST', '/habits', token, { name, scheduled })
+    },
 
+    async fetch(token) {
+        return api('GET', '/habits', token)
+    },
+
+    async update(token, habitID, name, scheduled, completed) {
+        return api('PUT', `/habits/${habitID}`, token, { name, scheduled, completed })
+    },
+
+    async delete(token, habitID) {
+        return api('DELETE', `/habits/${habitID}`, token)
+    },
 }
 
 const tasks = {
+    async create(token, name) {
+        return api('POST', '/tasks', token, { name })
+    },
 
+    async fetch(token) {
+        return api('GET', '/tasks', token)
+    },
+
+    async fetchPriority(token) {
+        return api('GET', '/tasks/priority', token)
+    },
+
+    async update(token, taskID, name, priority, completed) {
+        return api('PUT', `/tasks/${taskID}`, token, { name, priority, completed })
+    },
+
+    async delete(token, taskID) {
+        return api('DELETE', `/tasks/${taskID}`, token)
+    },
 }
 
 export { auth, habits, tasks, check };
-
-export async function completeTask() {
-
-}
-
-export async function deleteTask() {
-
-}
