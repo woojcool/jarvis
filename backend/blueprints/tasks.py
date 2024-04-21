@@ -39,7 +39,14 @@ def get_all_tasks():
     if not user:
         return {'error': 'User not found'}, 404
 
-    return
+    results = tasks.find({"_userID": ObjectId(userID)})
+    array = list(map(lambda x: {
+        "taskID": str(x['_id']),
+        "name": x['name'],
+        "deadline": x['deadline'],
+        "completed": x['completed']
+    }, list(results)))
+    return {'tasks': array}, 200
 
 @tasks_bp.route('/<taskID>', methods=['PUT'])
 def update_task(taskID):
@@ -48,7 +55,15 @@ def update_task(taskID):
     if not user:
         return {'error': 'User not found'}, 404
 
-    return
+    body = request.get_json(force=True)
+    update_data = {key: value for key, value in body.items() if key in ['name', 'deadline', 'completed']}
+    result = tasks.update_one({"_id": ObjectId(taskID), "_userID": ObjectId(userID)}, {'$set': update_data})
+
+    if result.matched_count == 0:
+        return {'error': 'Task not found'}, 404
+
+
+    return update_data, 200
 
 @tasks_bp.route('/<taskID>', methods=['DELETE'])
 def delete_task(taskID):
