@@ -4,7 +4,6 @@ import { Link, Tabs } from "expo-router";
 import { Pressable } from "react-native";
 
 import Colors from "@/constants/Colors";
-import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { useTheme } from "react-native-paper";
 
@@ -17,7 +16,6 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
   const theme = useTheme();
 
   return (
@@ -26,7 +24,6 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: theme.colors.background,
         },
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: useClientOnlyValue(false, true),
         headerStyle: {
           backgroundColor: theme.colors.background,
