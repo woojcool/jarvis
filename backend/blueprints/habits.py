@@ -85,5 +85,5 @@ def delete_habit(habitID):
     if result.deleted_count == 0:
         return {'error': 'Habit not found or already deleted'}, 404
 
-    return {'message': 'Habit deleted'}, 200
+    return "", 200
 
