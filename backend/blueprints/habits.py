@@ -36,9 +36,24 @@ def create_habit():
     return new_habit, 201
 
 @habits_bp.route('', methods=['GET'])
-def get_all_habits(): 
+def get_all_habits():
+    # check user
     userID = request.headers.get('Authorization')
-    return
+    user = users.find_one({"_id": ObjectId(userID)})
+    if not user:
+        return {'error': 'User not found'}, 404
+    
+    # fetch all habits with matching userID
+    results = habits.find({"_userID": ObjectId(userID)})
+
+    # return habits
+    array = list(map(lambda x: {
+        "habitID": str(x['_id']),
+        "name": x['name'],
+        "scheduled": x['scheduled'],
+        "completed": x['completed']
+    }, list(results)))
+    return {'habits': array}, 200
 
 @habits_bp.route('/<habitID>', methods=['PUT'])
 def update_habit(habitID):
