@@ -14,8 +14,19 @@ const index = () => {
   const [registerPassword, setRegisterPasssword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleLoginButton = () => {
-    router.replace("/(tabs)/overview");
+  const handleLoginButton = async () => {
+    const response = await auth.login(loginUsername, loginPassword);
+    if (response.error) {
+      alert(response.error);
+      return;
+    }
+
+    // ensure token is a string
+    const token = response?.token;
+    if (token) {
+      storeData("authToken", response.token);
+      router.replace("/(tabs)/overview");
+    }
   };
 
   const handleRegisterButton = async () => {
@@ -23,6 +34,7 @@ const index = () => {
       const response = await auth.register(registerUsername, registerPassword);
       if (response.error) {
         alert(response.error);
+        return;
       }
       const token = response?.token;
       if (token) {

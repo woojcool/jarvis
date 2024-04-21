@@ -1,9 +1,11 @@
 import { StyleSheet, View } from "react-native";
 import { check } from "@/api/api";
+import React, { useState, useEffect } from "react";
 import { Surface, Text, useTheme, Button } from "react-native-paper";
 
 export default function Overview() {
   const theme = useTheme();
+
   const handleCheckConnection = async () => {
     const response = await check();
     alert(JSON.stringify(response));

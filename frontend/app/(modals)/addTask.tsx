@@ -3,6 +3,8 @@ import { Text, Surface, useTheme, TextInput, Button } from "react-native-paper";
 import React, { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
+// This was the old way of adding a task when I was trying to use a date picker
+// Don't use this file for anything tbh
 const addTask = () => {
   const theme = useTheme();
   const [taskName, setTaskName] = useState("");
@@ -34,7 +36,6 @@ const addTask = () => {
         >
           Submit
         </Button>
-       
       </Surface>
     </View>
   );
