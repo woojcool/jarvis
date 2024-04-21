@@ -9,8 +9,7 @@ Host: {{host}}
 Authorization: {{userID}}
 
 {
-    "name": "{{name}}",
-    "deadline": "696969696969"
+    "name": "{{name}}"
 }
 
 ###
@@ -29,7 +28,7 @@ Authorization: {{userID}}
 
 {
     "name": "{{name}}",
-    "deadline": "420 420 420",
+    "priority": true,
     "completed": true
 }
 
