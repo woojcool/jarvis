@@ -55,7 +55,8 @@ def update_habit(habitID):
     if result.matched_count == 0:
         return {'error': 'Habit not found'}, 404
 
-    return {'message': 'Habit updated'}, 200
+
+    return update_data, 200
     
 
 @habits_bp.route('/<habitID>', methods=['DELETE'])
