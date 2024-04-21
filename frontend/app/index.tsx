@@ -26,6 +26,8 @@ const index = () => {
     if (token) {
       storeData("authToken", response.token);
       router.replace("/(tabs)/overview");
+    } else {
+      alert("Token not found")
     }
   };
 

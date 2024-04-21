@@ -6,6 +6,10 @@ import { Surface, Text, useTheme, Button } from "react-native-paper";
 export default function Overview() {
   const theme = useTheme();
 
+  useEffect(() => {
+    //
+  });
+
   const handleCheckConnection = async () => {
     const response = await check();
     alert(JSON.stringify(response));
