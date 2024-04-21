@@ -33,6 +33,7 @@ export async function createTask(name, userID = tempUserID) {
                 'Authorization': userID
             },
             body: JSON.stringify({ name: name })
+
         });
         if (!response.ok) {
             // Handle HTTP errors based on response status

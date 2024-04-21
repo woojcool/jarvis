@@ -32,8 +32,8 @@ const Tasks = () => {
   };
 
   const handleSubmitAddingTask = async () => {
-    const response = await createTask(newTaskName);
-    alert(JSON.stringify(response));
+    alert("Submit Adding Task");
+    setIsAddingTask(false);
   };
 
   const theme = useTheme();
