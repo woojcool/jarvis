@@ -1,7 +1,5 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { View } from "@/components/Themed";
 import { Surface, Text, useTheme } from "react-native-paper";
 
 export default function Overview() {
@@ -11,7 +9,7 @@ export default function Overview() {
       style={{ ...styles.container, backgroundColor: theme.colors.background }}
     >
       <Surface style={{ padding: 10 }}>
-        <Text>Screen One Text- Hello World</Text>
+        <Text>Day at a glance</Text>
         <Text>Weather</Text>
         <Text>Quote of the Day</Text>
         <Text>Today's Habits</Text>
@@ -28,4 +26,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
   },
+
+  
 });

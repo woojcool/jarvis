@@ -1,8 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { Text, useTheme } from "react-native-paper";
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { View } from "@/components/Themed";
 
 export default function Habits() {
   const theme = useTheme();

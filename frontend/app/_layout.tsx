@@ -8,9 +8,14 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { PaperProvider, useTheme } from "react-native-paper";
-
-import { useColorScheme } from "@/components/useColorScheme";
+import {
+  MD2DarkTheme,
+  MD3DarkTheme,
+  MD3LightTheme,
+  PaperProvider,
+  useTheme,
+} from "react-native-paper";
+import { useColorScheme } from "react-native";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -19,7 +24,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "/",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -50,22 +55,32 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-  const theme = useTheme();
-  const bgColor = theme.colors.background;
+  const scheme = useColorScheme();
 
+  const theme = scheme === "dark" ? MD3DarkTheme : MD3LightTheme;
   return (
-    <PaperProvider>
-      <Stack>
+    <PaperProvider theme={theme}>
+      <Stack
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: theme.colors.background,
+          },
+          headerTitleStyle: {
+            color: theme.colors.onBackground,
+          },
+          headerShown: true,
+          headerTintColor: theme.colors.onBackground
+        }}
+      >
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
-          name="(tabs)"
+          name="(modals)/addTask"
           options={{
-            headerShown: false,
-         
+            presentation: "modal",
+            title: "Add Task",
           }}
         />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
     </PaperProvider>
   );
