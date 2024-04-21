@@ -52,7 +52,7 @@ def logout():
     token = request.headers.get('Authorization')
     hashed_token = hashpw(token.encode('utf-8'), SECRET_SALT)
     tokens.delete_one({"token": hashed_token})
-    return '', 204
+    return {}, 204
 
 
 
@@ -69,6 +69,6 @@ def delete():
     if bcrypt.check_password_hash(user['password'], password):
         users.delete_one({"username": username})
         tokens.delete_many({"userID": user['_id']})
-        return '', 204
+        return {}, 204
     else:
         return {'error': 'Incorrect password'}, 401
