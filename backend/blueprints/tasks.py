@@ -13,20 +13,19 @@ def create_task():
     
     body = request.get_json(force=True)
     name = body['name']
-    deadline = body['deadline']
 
     new_task = {
         "_userID": ObjectId(userID),
         "name": name,
-        "deadline": deadline,
-        "completed": False
+        "completed": False,
+        "priority": False,
     }
     result = tasks.insert_one(new_task)
     new_task = {
         "taskID": str(result.inserted_id),
         "name": name,
-        "deadline": deadline,
-        "completed": False
+        "completed": False,
+        "priority": False,
     }
 
     return new_task, 201
@@ -43,8 +42,24 @@ def get_all_tasks():
     array = list(map(lambda x: {
         "taskID": str(x['_id']),
         "name": x['name'],
-        "deadline": x['deadline'],
-        "completed": x['completed']
+        "completed": x['completed'],
+        "priority": x['priority'],
+    }, list(results)))
+    return {'tasks': array}, 200
+
+@tasks_bp.route('/priority', methods=['GET'])
+def get_priority_tasks():
+    userID = request.headers.get('Authorization')
+    user = users.find_one({"_id": ObjectId(userID)})
+    if not user:
+        return {'error': 'User not found'}, 404
+
+    results = tasks.find({"_userID": ObjectId(userID), "priority":True})
+    array = list(map(lambda x: {
+        "taskID": str(x['_id']),
+        "name": x['name'],
+        "completed": x['completed'],
+        "priority": x['priority'],
     }, list(results)))
     return {'tasks': array}, 200
 
@@ -56,7 +71,7 @@ def update_task(taskID):
         return {'error': 'User not found'}, 404
 
     body = request.get_json(force=True)
-    update_data = {key: value for key, value in body.items() if key in ['name', 'deadline', 'completed']}
+    update_data = {key: value for key, value in body.items() if key in ['name', 'priority', 'completed']}
     result = tasks.update_one({"_id": ObjectId(taskID), "_userID": ObjectId(userID)}, {'$set': update_data})
 
     if result.matched_count == 0:
