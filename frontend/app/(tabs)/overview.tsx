@@ -1,9 +1,13 @@
 import { StyleSheet, View } from "react-native";
-
-import { Surface, Text, useTheme } from "react-native-paper";
+import { check } from "@/api/api";
+import { Surface, Text, useTheme, Button } from "react-native-paper";
 
 export default function Overview() {
   const theme = useTheme();
+  const handleCheckConnection = async () => {
+    const response = await check();
+    alert(JSON.stringify(response));
+  };
   return (
     <View
       style={{ ...styles.container, backgroundColor: theme.colors.background }}
@@ -15,6 +19,7 @@ export default function Overview() {
         <Text>Today's Habits</Text>
         <Text>Today's TODO</Text>
       </Surface>
+      <Button onPress={handleCheckConnection}>Check Connection</Button>
     </View>
   );
 }
@@ -26,6 +31,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "column",
   },
-
-  
 });
