@@ -14,7 +14,7 @@ app.register_blueprint(tasks_bp)
 # just to ensure the api is up and running
 @app.route('/test', methods=['GET'])
 def test():
-    return "App is up and running", 201
+    return "App is up and running", 200
 
 
 if __name__ == '__main__':
