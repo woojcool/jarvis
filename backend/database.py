@@ -8,3 +8,4 @@ db = client.jarvis
 users = db.users
 habits = db.habits
 tasks = db.tasks
+tokens = db.tokens

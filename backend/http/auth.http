@@ -27,6 +27,13 @@ Content-Type: 'application/json'
 }
 
 ###
+# @name logout
+# @prompt token Token
+POST /auth/logout HTTP/1.1
+Host: {{host}}
+Authorization: {{token}}
+
+###
 # @name deleteUser
 # @prompt user Username
 # @prompt pass Password
