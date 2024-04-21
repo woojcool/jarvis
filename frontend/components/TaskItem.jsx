@@ -49,7 +49,7 @@ const TaskItem = ({ data, update }) => {
           status={checked ? "checked" : "unchecked"}
           onPress={toggleChecked}
         />
-        <Text>{data.name}</Text>
+        <Text variant="titleMedium">{data.name}</Text>
       </View>
       <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
         {isPriority && (
@@ -67,5 +67,3 @@ const TaskItem = ({ data, update }) => {
 };
 
 export default TaskItem;
-
-const styles = StyleSheet.create({});

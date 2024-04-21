@@ -37,19 +37,21 @@ export default function TabLayout() {
         name="overview"
         options={{
           title: "Overview",
+          tabBarIcon: ({ color }) => <TabBarIcon name="info-circle" color={color} />,
         }}
       />
       <Tabs.Screen
         name="habits"
         options={{
           title: "Habits",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
         }}
       />
       <Tabs.Screen
         name="tasks"
         options={{
           title: "Task List",
+          tabBarIcon: ({ color }) => <TabBarIcon name="clock-o" color={color} />,
         }}
       />
     </Tabs>

@@ -43,7 +43,7 @@ const HabitItem = ({ data, update }) => {
   return (
     <Surface style={styles.container}>
       <View style={styles.left}>
-        <Text style={{ marginLeft: 5 }}>{data.name}</Text>
+        <Text style={{ marginLeft: 5, padding: 5 }} variant="titleMedium">{data.name}</Text>
         <View style={{ flexDirection: "row" }}>
           <SmallBtn key={0} idx={0} on={completed[0]} letter="SU" />
           <SmallBtn key={1} idx={1} on={completed[1]} letter="M" />

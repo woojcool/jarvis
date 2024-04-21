@@ -18,21 +18,15 @@ export default function Overview() {
     <View
       style={{ ...styles.container, backgroundColor: theme.colors.background }}
     >
-      <Surface style={{ padding: 10 }}>
+      {/* <Surface style={{ padding: 10 }}> */}
         <View>
-          <Text>Day at a glance</Text>
+          <Text variant="displayMedium">Welcome to Jarvis.</Text>
         </View>
         <View>
-          <Text>Quote of the Day</Text>
+          <Text variant="titleMedium">Choose a tab below to get started.</Text>
         </View>
-        <View>
-          <Text>Today's Habits</Text>
-        </View>
-        <View>
-          <Text>Priority Todo</Text>
-        </View>
-      </Surface>
-      <Button onPress={handleCheckConnection}>Check Connection</Button>
+      {/* </Surface> */}
+      {/* <Button onPress={handleCheckConnection}>Check Connection</Button> */}
     </View>
   );
 }
