@@ -1,11 +1,12 @@
 @host=localhost:5000
+@userID=66243ff433824491c4c968eb
 
 ###
 # @name postHabits
 # @prompt name Habit name
 POST /habits HTTP/1.1
 Host: {{host}}
-Authorization: '42069'
+Authorization: {{userID}}
 
 {
     "name": "{{name}}",
@@ -16,7 +17,7 @@ Authorization: '42069'
 # @name getHabits
 GET /habits HTTP/1.1
 Host: {{host}}
-Authorization: '42069'
+Authorization: {{userID}}
 
 ###
 # @name putHabit
@@ -24,10 +25,17 @@ Authorization: '42069'
 # @prompt name New habit name
 PUT /habits/{{habitID}} HTTP/1.1
 Host: {{host}}
-Authorization: '42069'
+Authorization: {{userID}}
 
 {
     "name": "{{name}}",
     "scheduled": [false, true, false, true, false, true, false],
     "completed": [false, true, false, false, false, false, false]
 }
+
+###
+# @name deleteHabit
+# @prompt habitID Habit ID
+DELETE /habits/{{habitID}} HTTP/1.1
+Host: {{host}}
+Authorization: {{userID}}

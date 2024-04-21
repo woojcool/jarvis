@@ -1,1 +1,41 @@
 @host=localhost:5000
+@userID=66243ff433824491c4c968eb
+
+###
+# @name postTasks
+# @prompt name Task name
+POST /tasks HTTP/1.1
+Host: {{host}}
+Authorization: {{userID}}
+
+{
+    "name": "{{name}}",
+    "deadline": "696969696969"
+}
+
+###
+# @name getTasks
+GET /tasks HTTP/1.1
+Host: {{host}}
+Authorization: {{userID}}
+
+###
+# @name putTask
+# @prompt taskID Task ID
+# @prompt name New task name
+PUT /tasks/{{taskID}} HTTP/1.1
+Host: {{host}}
+Authorization: {{userID}}
+
+{
+    "name": "{{name}}",
+    "deadline": "420 420 420",
+    "completed": true
+}
+
+###
+# @name deleteTask
+# @prompt taskID Task ID
+DELETE /tasks/{{taskID}} HTTP/1.1
+Host: {{host}}
+Authorization: {{userID}}
