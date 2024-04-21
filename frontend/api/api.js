@@ -30,10 +30,6 @@ async function check() {
     }
 }
 
-export async function getPriorityTasks() {
-
-}
-
 export async function createTask(name, userID = tempUserID) {
     try {
         const response = await fetch(`${host}/tasks`, {
@@ -89,20 +85,20 @@ const auth = {
 }
 
 const habits = {
-    async create(token, name) {
-
+    async create(token, name, scheduled) {
+        return api('POST', '/habits', token, { name, scheduled })
     },
 
     async fetch(token) {
-
+        return api('GET', '/habits', token)
     },
 
     async update(token, habitID, name, scheduled, completed) {
-
+        return api('PUT', `/habits/${habitID}`, token, { name, scheduled, completed })
     },
 
     async delete(token, habitID) {
-
+        return api('DELETE', `/habits/${habitID}`, token)
     },
 }
 
@@ -129,11 +125,3 @@ const tasks = {
 }
 
 export { auth, habits, tasks, check };
-
-export async function completeTask() {
-
-}
-
-export async function deleteTask() {
-
-}
