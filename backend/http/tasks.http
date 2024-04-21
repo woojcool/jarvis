@@ -1,12 +1,12 @@
 @host=localhost:5000
-@userID=66243ff433824491c4c968eb
+@token=vZxpJOWbRgfkFs9f3y-E_F04rMivVZn91UsDT-3WHGQ
 
 ###
 # @name postTasks
 # @prompt name Task name
 POST /tasks HTTP/1.1
 Host: {{host}}
-Authorization: {{userID}}
+Authorization: {{token}}
 
 {
     "name": "{{name}}"
@@ -16,7 +16,7 @@ Authorization: {{userID}}
 # @name getTasks
 GET /tasks HTTP/1.1
 Host: {{host}}
-Authorization: {{userID}}
+Authorization: {{token}}
 
 ###
 # @name putTask
@@ -24,7 +24,7 @@ Authorization: {{userID}}
 # @prompt name New task name
 PUT /tasks/{{taskID}} HTTP/1.1
 Host: {{host}}
-Authorization: {{userID}}
+Authorization: {{token}}
 
 {
     "name": "{{name}}",
@@ -37,4 +37,4 @@ Authorization: {{userID}}
 # @prompt taskID Task ID
 DELETE /tasks/{{taskID}} HTTP/1.1
 Host: {{host}}
-Authorization: {{userID}}
+Authorization: {{token}}
