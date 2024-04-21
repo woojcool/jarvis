@@ -47,11 +47,43 @@ const auth = {
 }
 
 const habits = {
+    async create(token, name) {
 
+    },
+
+    async fetch(token) {
+
+    },
+
+    async update(token, habitID, name, scheduled, completed) {
+
+    },
+
+    async delete(token, habitID) {
+
+    },
 }
 
 const tasks = {
+    async create(token, name) {
+        return api('POST', '/tasks', token, { name })
+    },
 
+    async fetch(token) {
+        return api('GET', '/tasks', token)
+    },
+
+    async fetchPriority(token) {
+        return api('GET', '/tasks/priority', token)
+    },
+
+    async update(token, taskID, name, priority, completed) {
+        return api('PUT', `/tasks/${taskID}`, token, { name, priority, completed })
+    },
+
+    async delete(token, taskID) {
+        return api('DELETE', `/tasks/${taskID}`, token)
+    },
 }
 
 export { auth, habits, tasks, check };
