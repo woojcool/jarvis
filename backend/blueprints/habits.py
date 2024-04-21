@@ -1,16 +1,13 @@
 from flask import Blueprint, request
-from database import users, habits
+from database import habits, authenticate
 from bson.objectid import ObjectId
 
 habits_bp = Blueprint("habits", __name__, url_prefix='/habits')
 
 @habits_bp.route('', methods=['POST'])
 def create_habit():
-    # check user
-    userID = request.headers.get('Authorization')
-    user = users.find_one({"_id": ObjectId(userID)})
-    if not user:
-        return {'error': 'User not found'}, 404
+    userID = authenticate(request.headers.get('Authorization'))
+    if not userID: return {'error': 'Invalid token'}, 403
 
     # get habit data
     body = request.get_json(force=True)
@@ -38,10 +35,8 @@ def create_habit():
 @habits_bp.route('', methods=['GET'])
 def get_all_habits():
     # check user
-    userID = request.headers.get('Authorization')
-    user = users.find_one({"_id": ObjectId(userID)})
-    if not user:
-        return {'error': 'User not found'}, 404
+    userID = authenticate(request.headers.get('Authorization'))
+    if not userID: return {'error': 'Invalid token'}, 403
     
     # fetch all habits with matching userID
     results = habits.find({"_userID": ObjectId(userID)})
@@ -57,10 +52,8 @@ def get_all_habits():
 
 @habits_bp.route('/<habitID>', methods=['PUT'])
 def update_habit(habitID):
-    userID = request.headers.get('Authorization')
-    user = users.find_one({"_id": ObjectId(userID)})
-    if not user:
-        return {'error': 'User not found'}, 404
+    userID = authenticate(request.headers.get('Authorization'))
+    if not userID: return {'error': 'Invalid token'}, 403
 
     body = request.get_json(force=True)
 
@@ -76,10 +69,8 @@ def update_habit(habitID):
 
 @habits_bp.route('/<habitID>', methods=['DELETE'])
 def delete_habit(habitID):
-    userID = request.headers.get('Authorization')
-    user = users.find_one({"_id": ObjectId(userID)})
-    if not user:
-        return {'error': 'User not found'}, 404
+    userID = authenticate(request.headers.get('Authorization'))
+    if not userID: return {'error': 'Invalid token'}, 403
     
     result = habits.delete_one({"_id": ObjectId(habitID), "_userID": ObjectId(userID)})
     if result.deleted_count == 0:

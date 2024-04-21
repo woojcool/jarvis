@@ -1,8 +1,7 @@
 from flask import Blueprint, request
 from database import users, tokens
 from bcrypto import bcrypt
-from flask_login import current_user, login_required, login_user, logout_user
-from flask import Blueprint, redirect, url_for, render_template, flash, request
+from flask import Blueprint, request
 import secrets
 from bcrypt import hashpw
 from config import SECRET_SALT
