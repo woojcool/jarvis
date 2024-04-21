@@ -2,6 +2,8 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import { Text, useTheme, Surface, TextInput, Button } from "react-native-paper";
 import React, { useState } from "react";
 import { router } from "expo-router";
+import { auth } from "@/api/api";
+import { storeData } from "@/api/storage";
 
 const index = () => {
   const theme = useTheme();
@@ -16,8 +18,21 @@ const index = () => {
     router.replace("/(tabs)/overview");
   };
 
-  const handleRegisterButton = () => {
-    alert("register btn clicked");
+  const handleRegisterButton = async () => {
+    if (registerPassword.localeCompare(confirmPassword) === 0) {
+      const response = await auth.register(registerUsername, registerPassword);
+      if (response.error) {
+        alert(response.error);
+      }
+      const token = response?.token;
+      if (token) {
+        alert("Successful Registration");
+        storeData("authToken", token);
+        router.replace("/(tabs)/overview");
+      } else {
+        alert("Token not found");
+      }
+    }
   };
 
   return (
