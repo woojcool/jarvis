@@ -9,31 +9,33 @@ import {
 } from "react-native-paper";
 import TaskItem from "@/components/TaskItem";
 import { router } from "expo-router";
-import { createTask } from "@/api/api";
+import * as API from "@/api/api";
+import { retrieveData } from "@/api/storage";
 
-const fillerTasks = [
-  {
-    name: "Task X",
-  },
-  {
-    name: "Task Y",
-  },
-  {
-    name: "Task Z",
-  },
-];
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState(fillerTasks);
+  const [tasks, setTasks] = useState([]);
   const [newTaskName, setNewTaskName] = useState("");
   const [isAddingTask, setIsAddingTask] = useState(false);
+
+  const update = () => {
+    retrieveData('authToken')
+      .then(token => API.tasks.fetch(token))
+      .then(data => setTasks(data.tasks));
+  };
+
+  useEffect(update, [])
+
   const toggleAddingTask = () => {
     setIsAddingTask(!isAddingTask);
   };
 
   const handleSubmitAddingTask = async () => {
-    alert("Submit Adding Task");
+    const token = await retrieveData('authToken');
+    await API.tasks.create(token, newTaskName);
+    update();
     setIsAddingTask(false);
+    setNewTaskName("");
   };
 
   const theme = useTheme();
@@ -46,7 +48,7 @@ const Tasks = () => {
     >
       <View style={styles.innerContainer}>
         {tasks.map((task, idx) => {
-          return <TaskItem name={task.name} key={idx} />;
+          return <TaskItem data={task} update={update} key={idx} />;
         })}
         {isAddingTask && (
           <View

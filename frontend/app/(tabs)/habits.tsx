@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   TextInput,
@@ -8,21 +8,35 @@ import {
   IconButton,
 } from "react-native-paper";
 import HabitItem from "@/components/HabitItem";
+import * as API from "@/api/api";
+import { retrieveData } from "@/api/storage";
 
 export default function Habits() {
-  const theme = useTheme();
   const [habits, setHabits] = useState([]);
-  const [isAddingHabit, setIsAddingHabit] = useState(false);
   const [newHabitName, setNewHabitName] = useState("");
+  const [isAddingHabit, setIsAddingHabit] = useState(false);
+
+  const update = () => {
+    retrieveData('authToken')
+      .then(token => API.habits.fetch(token))
+      .then(data => setHabits(data.habits))
+  }
+
+  useEffect(update, [])
+
   const toggleAddingHabit = () => {
     setIsAddingHabit(!isAddingHabit);
   };
 
-  const handleSubmitAddingHabit = () => {
-    alert("Submit Adding Habit");
+  const handleSubmitAddingHabit = async () => {
+    const token = await retrieveData('authToken');
+    await API.habits.create(token, newHabitName, [false, false, false, false, false, false, false]);
+    update();
     setIsAddingHabit(false);
+    setNewHabitName("");
   };
 
+  const theme = useTheme();
   return (
     <View
       style={{
@@ -31,9 +45,9 @@ export default function Habits() {
       }}
     >
       <View style={styles.contentContainer}>
-        <HabitItem name="Habit" />
-        <HabitItem name="Habit 2" />
-        <HabitItem name="Habit 3" />
+        {habits.map((habit, idx) => {
+          return <HabitItem data={habit} update={update} key={idx} />
+        })}
         {isAddingHabit && (
           <View
             style={{
