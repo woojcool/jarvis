@@ -83,4 +83,4 @@ def delete_task(taskID):
     if result.deleted_count == 0:
         return {'error': 'Task not found or already deleted'}, 404
 
-    return "", 200
+    return {}, 200
