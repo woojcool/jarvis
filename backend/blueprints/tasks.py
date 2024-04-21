@@ -4,6 +4,7 @@ from bson.objectid import ObjectId
 
 tasks_bp = Blueprint("tasks", __name__, url_prefix='/tasks')
 
+
 @tasks_bp.route('', methods=['POST'])
 def create_task():
     userID = authenticate(request.headers.get('Authorization'))
@@ -57,6 +58,7 @@ def get_priority_tasks():
     }, list(results)))
     return {'tasks': array}, 200
 
+
 @tasks_bp.route('/<taskID>', methods=['PUT'])
 def update_task(taskID):
     userID = authenticate(request.headers.get('Authorization'))
@@ -69,8 +71,8 @@ def update_task(taskID):
     if result.matched_count == 0:
         return {'error': 'Task not found'}, 404
 
-
     return update_data, 200
+
 
 @tasks_bp.route('/<taskID>', methods=['DELETE'])
 def delete_task(taskID):

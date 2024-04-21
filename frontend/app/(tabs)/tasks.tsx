@@ -9,6 +9,7 @@ import {
 } from "react-native-paper";
 import TaskItem from "@/components/TaskItem";
 import { router } from "expo-router";
+import { createTask } from "@/api/api";
 
 const fillerTasks = [
   {
@@ -30,8 +31,9 @@ const Tasks = () => {
     setIsAddingTask(!isAddingTask);
   };
 
-  const handleSubmitAddingTask = () => {
-    alert(newTaskName);
+  const handleSubmitAddingTask = async () => {
+    alert("Submit Adding Task");
+    setIsAddingTask(false);
   };
 
   const theme = useTheme();
