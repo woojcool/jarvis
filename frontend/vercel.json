@@ -1,15 +1,13 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "frontend/app",
-            "use": "@vercel/python"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "frontend/app"
-        }
-    ]
+  "buildCommand": "expo export -p web",
+  "outputDirectory": "dist",
+  "devCommand": "expo",
+  "cleanUrls": true,
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/dist"
+    }
+  ]
 }
