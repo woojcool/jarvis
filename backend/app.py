@@ -5,6 +5,7 @@ from blueprints.habits import habits_bp
 from blueprints.tasks import tasks_bp
 
 
+
 app = Flask(__name__)
 CORS(app)
 app.register_blueprint(auth_bp)
