@@ -1,5 +1,4 @@
-const localHost = 'http://127.0.0.1:5000'
-const host = localHost;
+const host = 'https://jarvis-phi.vercel.app'
 const tempUserID = "662446b523ac0ad41cd0945c";
 
 async function api(method, path, token, body) {
