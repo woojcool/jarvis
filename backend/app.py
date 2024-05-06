@@ -4,12 +4,6 @@ from blueprints.auth import auth_bp
 from blueprints.habits import habits_bp
 from blueprints.tasks import tasks_bp
 
-from app import create_app
-
-app = create_app()
-
-if __name__ == "__main__":
-    app.run()
 
 app = Flask(__name__)
 CORS(app)
